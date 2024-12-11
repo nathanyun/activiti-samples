@@ -107,13 +107,14 @@ public class ActivitiDemoTest {
         // 查询任务列表
         List<Task> tasks = taskService.createTaskQuery()
                 .processDefinitionKey("myLeave")
-                .taskAssignee("manager")// worker --> manager --> hr
+                //.taskAssignee("manager")// worker --> manager --> hr
                 .list();
         for (Task task : tasks) {
             System.out.println("流程实例ID: " + task.getProcessInstanceId());
             System.out.println("任务ID: " + task.getId());
             System.out.println("任务名称: " + task.getName());
             System.out.println("任务负责人: " + task.getAssignee());
+            System.out.println("==================================");
         }
     }
 

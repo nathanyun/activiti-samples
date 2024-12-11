@@ -37,7 +37,7 @@ public class ActivitiBusinessDemoTest {
         List<ProcessInstance> instances = processInstanceQuery.processDefinitionKey("myLeave").list();
         for (ProcessInstance instance : instances) {
             System.out.println("实例ID:"+instance.getId());
-            System.out.println("实例所属流程ID:"+instance.getProcessDefinitionId());
+            System.out.println("实例所属流程定义ID:"+instance.getProcessDefinitionId());
             System.out.println("实例名称:"+instance.getName());
             System.out.println("实例开始时间:"+instance.getStartTime());
             System.out.println("getProcessVariables:"+instance.getProcessVariables());
