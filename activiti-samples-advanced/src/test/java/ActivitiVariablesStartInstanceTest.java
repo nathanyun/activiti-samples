@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 流程变量测试
+ * 流程变量测试, 启动流程实例时指定变量
  */
-public class ActivitiVariablesTest {
+public class ActivitiVariablesStartInstanceTest {
 
     /**
      * 部署流程
