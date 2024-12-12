@@ -106,3 +106,53 @@ join汇聚： 所有到达并行网关，在此等待的进入分支， 直到�
 
 ### 3.3 包含网关 InclusiveGateway
 包含网关可以看做是排他网关和并行网关的结合体。
+
+## 4.候选人用户
+在 Activiti 工作流中，配置多个 candidateUsers 时，通常可以通过使用 UEL 表达式动态设置候选用户。具体配置方式取决于候选用户的数据来源。
+### 1. 直接在 BPMN 文件中配置多个用户
+可以通过逗号分隔的方式直接指定多个用户：
+```xml
+<candidateUsers>${'user1,user2,user3'}</candidateUsers>
+```
+### 2. 使用集合（List）配置多个用户
+如果候选用户列表是由后台传递的集合，例如 Java 的 List 或 Set，可以直接引用变量：
+```xml
+<candidateUsers>${candidateUserList}</candidateUsers>
+```
+在这种情况下，candidateUserList 应该是一个包含用户 ID 的 List<String> 对象，例如：
+```java
+List<String> candidateUserList = Arrays.asList("user1", "user2", "user3");
+execution.setVariable("candidateUserList", candidateUserList);
+```
+
+### 3. 从 Map 中动态获取
+如果候选用户列表保存在一个 Map 中，可以通过键获取值：
+
+```xml
+<candidateUsers>${userMap['key']}</candidateUsers>
+```
+后台代码
+```java
+Map<String, List<String>> userMap = new HashMap<>();
+userMap.put("key", Arrays.asList("user1", "user2", "user3"));
+execution.setVariable("userMap", userMap);
+```
+### 4. 通过函数生成候选用户
+如果需要动态计算候选用户，可以调用 Java 类的方法：
+
+```xml
+<candidateUsers>${userService.getCandidateUsers()}</candidateUsers>
+```
+后台实现：
+```java
+public class UserService {
+    public List<String> getCandidateUsers() {
+    return Arrays.asList("user1", "user2", "user3");
+    }
+}
+```
+需要在 Activiti 配置中将 UserService 注册为 Bean。
+> 注意事项:  
+candidateUsers 的值最终会被解析为字符串。如果是集合，Activiti 会自动将其转换为以逗号分隔的字符串。
+保证 UEL 表达式中引用的变量在任务执行前已正确设置。
+如果候选用户较多，建议使用集合的方式进行动态设置，以提高可维护性。
