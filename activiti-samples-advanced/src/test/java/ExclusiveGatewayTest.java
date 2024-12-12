@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * 排他网关测试
  */
-public class ActivitiExclusiveGatewayTest {
+public class ExclusiveGatewayTest {
 
     /**
      * 部署流程

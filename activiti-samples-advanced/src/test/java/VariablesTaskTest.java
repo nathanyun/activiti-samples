@@ -3,7 +3,6 @@ import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
-import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -19,7 +18,7 @@ import java.util.Map;
  * 流程变量测试,  在完成任务时设置流程变量
  * <pre>前提条件: 流程已经部署并启动了实例</pre>
  */
-public class ActivitiVariablesTaskTest {
+public class VariablesTaskTest {
 
 
     /**

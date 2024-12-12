@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 包含网关测试
+ * 并行网关测试
  */
-public class ActivitiInclusiveGatewayTest {
+public class ParallelGatewayTest {
 
     /**
      * 部署流程
@@ -28,9 +28,9 @@ public class ActivitiInclusiveGatewayTest {
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
         RepositoryService repositoryService = processEngine.getRepositoryService();
         Deployment deployment = repositoryService.createDeployment()
-                .addClasspathResource("bpmn/leaveInclusiveGateway.bpmn")// 指定流程配置文件
-                .addClasspathResource("bpmn/leaveInclusiveGateway.png")// 指定流程图文件
-                .name("出差申请流程inclusive")// 命名
+                .addClasspathResource("bpmn/leaveParallelGateway.bpmn")// 指定流程配置文件
+                .addClasspathResource("bpmn/leaveParallelGateway.png")// 指定流程图文件
+                .name("出差申请流程")// 命名
                 .deploy();// 部署
         System.out.println("deptId=" + deployment.getId());
         System.out.println("deptName=" + deployment.getName());
@@ -44,13 +44,12 @@ public class ActivitiInclusiveGatewayTest {
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
         RuntimeService runtimeService = processEngine.getRuntimeService();
         Map<String, Object> variables = new HashMap<>();
-        variables.put("num", 6);// 出差天数
+        variables.put("num", 5);// 出差天数
         variables.put("worker", "Tony");
         variables.put("productManager", "Tom");
         variables.put("technicalManager", "Jerry");
-        variables.put("hr", "Bonny");
         variables.put("manager", "Bob");
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("leaveInclusiveGateway", variables);
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("leaveParallelGateway", variables);
         System.out.println("流程实例ID=" + processInstance.getId());
         System.out.println("流程定义ID=" + processInstance.getProcessDefinitionId());
         System.out.println("=======================================");
@@ -65,7 +64,7 @@ public class ActivitiInclusiveGatewayTest {
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
         TaskService taskService = processEngine.getTaskService();
         List<Task> tasks = taskService.createTaskQuery()
-                .processDefinitionKey("leaveInclusiveGateway")
+                .processDefinitionKey("leaveParallelGateway")
                 .list();
         for (Task task : tasks) {
             System.out.println("流程实例ID: " + task.getProcessInstanceId());
@@ -85,9 +84,8 @@ public class ActivitiInclusiveGatewayTest {
         TaskService taskService = processEngine.getTaskService();
         // 查询任务
         Task task = taskService.createTaskQuery()
-                //.processDefinitionKey("leaveInclusiveGateway")// 流程key
-                .processInstanceId("90001")
-                .taskAssignee("Tom")// 查询Tom的任务
+                .processDefinitionKey("leaveParallelGateway")// 流程key
+                .taskAssignee("Jerry")// 查询Tom的任务
                 .singleResult();// 只返回一个任务(注意: 如果这个负责人有多个任务,这里查一个的话会抛异常)
         if (task != null){
             // 执行任务
@@ -109,13 +107,16 @@ public class ActivitiInclusiveGatewayTest {
         // 获取实例
         RuntimeService runtimeService = processEngine.getRuntimeService();
         ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
-                .processDefinitionKey("leaveInclusiveGateway")
+                .processDefinitionKey("leaveParallelGateway")
                 .singleResult();
 
         // 查询这个实例的历史记录
         HistoryService historyService = processEngine.getHistoryService();
         HistoricActivityInstanceQuery historicActivityInstanceQuery = historyService.createHistoricActivityInstanceQuery();
+        // 查询 ACT_HI_ACTINST 表，条件：根据 InstanceId 查询
         historicActivityInstanceQuery.processInstanceId(processInstance.getId());
+        // 查询 ACT_HI_ACTINST 表，条件：根据 DefinitionId 查询
+        //historicActivityInstanceQuery.processDefinitionId("myLeave:2:2504");
 
         for (HistoricActivityInstance hi : historicActivityInstanceQuery.list()) {
             if ("userTask".equals(hi.getActivityType())){

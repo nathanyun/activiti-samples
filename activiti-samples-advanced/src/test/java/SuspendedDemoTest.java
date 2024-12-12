@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-public class ActivitiSuspendedDemoTest {
+public class SuspendedDemoTest {
 
     /**
      * 挂起流程定义, 所有的流程都会被挂起

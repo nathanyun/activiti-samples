@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * 流程变量测试, 启动流程实例时指定变量
  */
-public class ActivitiVariablesStartInstanceTest {
+public class VariablesStartInstanceTest {
 
     /**
      * 部署流程

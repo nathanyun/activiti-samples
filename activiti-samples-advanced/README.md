@@ -88,7 +88,7 @@ public void testSuspendInstance(){
 
 例如:Tom申请请假, 3天以下需要直属经理审批,再由HR审批; 3天以上需要直属经理审批后,再有部门经理审批,最后由HR审批.
 
-示例代码:`ActivitiExclusiveGatewayTest`
+示例代码:`ExclusiveGatewayTest`
 
 ### 3.2 并行网关 ParallelGateway
 并行网关允许将流程分成多条分支，也可以把多条分支汇聚到一起，并行网关的功 能是基于进入和外出顺序流的：

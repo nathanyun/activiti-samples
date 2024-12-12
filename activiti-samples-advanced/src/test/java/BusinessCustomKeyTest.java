@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-public class ActivitiBusinessDemoTest {
+public class BusinessCustomKeyTest {
 
     /**
      * 添加业务自定义key
