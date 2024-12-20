@@ -4,7 +4,7 @@
     <startEvent id="sid-fd59f2af-3431-440e-ad8e-8e6b44d4fc36" name="开始"/>
     <userTask id="sid-2e1b2438-caff-4604-98f6-8f3825fcd53e" name="发起sql申请" activiti:assignee="${worker}"/>
     <sequenceFlow id="sid-ecfcfc16-ab1c-45c7-8e04-5601a1e69e6d" sourceRef="sid-fd59f2af-3431-440e-ad8e-8e6b44d4fc36" targetRef="sid-2e1b2438-caff-4604-98f6-8f3825fcd53e"/>
-    <userTask id="sid-acde2583-19a0-44da-bdd5-ea94d690369b" name="DBA审核" activiti:candidateGroups="${candidateGroups}"/>
+    <userTask id="sid-acde2583-19a0-44da-bdd5-ea94d690369b" name="DBA审核" activiti:candidateUsers="${candidateUserList}"/>
     <sequenceFlow id="sid-df3a0e8d-b996-4245-9445-c4d0945e8c0e" sourceRef="sid-2e1b2438-caff-4604-98f6-8f3825fcd53e" targetRef="sid-acde2583-19a0-44da-bdd5-ea94d690369b"/>
     <sequenceFlow id="sid-e16d5f8f-f6fe-4977-8c71-97add7497b0c" sourceRef="sid-acde2583-19a0-44da-bdd5-ea94d690369b" targetRef="sid-e5fa02e8-baa8-4c02-b400-ca3de3a2d3df"/>
     <endEvent id="sid-e5fa02e8-baa8-4c02-b400-ca3de3a2d3df" name="结束"/>

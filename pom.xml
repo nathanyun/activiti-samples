@@ -12,7 +12,7 @@
     <modules>
         <module>activiti-samples-advanced</module>
         <module>activiti-samples-quickstart</module>
-        <module>activiti-samples-springboot</module>
+<!--        <module>activiti-samples-springboot</module>-->
     </modules>
 
     <properties>
